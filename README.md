@@ -11,3 +11,5 @@ The main issue that we identify is the fact that students have to operate within
 The user base is profiles after the different types of student records of the university. The first group consists of commuter students who need real-time access to schedule changes and campus alerts through mobile friendly. Another personality is those who high-achievers, such as Amara Lynch, who require viewing their module grades and attendance in all in one place in order to track their academic performance. Also, foreign students like Mia Williams need convenient access to extracurricular activities and integration services. It is these personas that lead to a design of high usability and fast information retrieval.  
 
 The system uses particular student profiles from campus_companion_students.csv data to provide international student services, which help Mia Williams access extracurricular activities and campus life support. The system uses student profiles from structured university datasets to create integration services, which help international users transition smoothly into campus life.  
+
+- Allyssa
