@@ -12,4 +12,4 @@ The user base is profiles after the different types of student records of the un
 
 The system uses particular student profiles from campus_companion_students.csv data to provide international student services, which help Mia Williams access extracurricular activities and campus life support. The system uses student profiles from structured university datasets to create integration services, which help international users transition smoothly into campus life.  
 
-- Allyssa
+- by Allyssa
