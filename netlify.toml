@@ -1,0 +1,23 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[functions]
+  directory = "netlify/functions"
+
+# Redirect API calls to Netlify Functions in production
+# Next.js /app/api routes handle dev; functions handle Netlify edge
+[[redirects]]
+  from = "/api/timetable"
+  to = "/.netlify/functions/timetable"
+  status = 200
+  conditions = {Role = ["netlify"]}
+
+[[redirects]]
+  from = "/api/announcements"
+  to = "/.netlify/functions/announcements"
+  status = 200
+  conditions = {Role = ["netlify"]}
