@@ -46,9 +46,7 @@ export default function RootLayout({
               rel="noopener noreferrer"
             >
               Live site
-            </a>{" "}
-            ·{" "}
-            <a href="/accessibility">Accessibility statement</a>
+            </a>
           </p>
         </footer>
       </body>
