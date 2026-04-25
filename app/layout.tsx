@@ -39,7 +39,15 @@ export default function RootLayout({
         </main>
         <footer className="site-footer" role="contentinfo">
           <p>
-            © 2025 Hartwell University · Campus Companion ·{" "}
+            © 2026 Hartwell University · Campus Companion ·{" "}
+            <a
+              href="https://aesthetic-sunburst-e95212.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Live site
+            </a>{" "}
+            ·{" "}
             <a href="/accessibility">Accessibility statement</a>
           </p>
         </footer>
