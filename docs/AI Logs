@@ -1,0 +1,110 @@
+Homepage
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted to create a search bar using bootstrap with a white background proper accessibility.
+Prompt Paste the structured prompt	“How would you create a search bar using bootstrap with a white background and make it accessible?”
+Model/output summary 1-3 sentences	The output suggested using Bootstrap classes such as form-control, bg-white, text-dark, aria-label for accessibility. It also provided a template for the form.
+What you changed next How you iterated / fixed issues	I updated the navigation bar to improve accessibility and usability as I had trouble making the search bar. At first I didn’t understand what aria-label was but I learned it helped screen readers.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted to create a visually engaging top section for the homepage with an image, title and short description.
+Prompt Paste the structured prompt	“How to create a visually appealing header section for this page using html and bootstrap including an image and text?”
+Model/output summary 1-3 sentences	The output suggested using the hero along with bootstrap classes to structure and style the layout.
+What you changed next How you iterated / fixed issues	I added the hero section and at first the text was hard to read on the image so I adjusted the font size and positioning and then it worked.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I had simple card boxes, however I wanted to arrange them properly on the page instead of having them stacked on top of each other.
+Prompt Paste the structured prompt	“How do I use bootstrap columns to organise my card boxes?”
+Model/output summary 1-3 sentences	The output suggested to use the grid system with rows and col-md-6 to keep the boxes side by side instead of stacked.
+What you changed next How you iterated / fixed issues	I applied col-md-6 to my layout to which fixed the stacking issues. At first they weren’t aligned properly so I adjusted the structure.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted to understand how to use containers and spacing to improve the layout because it looked basic. I had used containers before but forgot how to implement them.
+Prompt Paste the structured prompt	“What is the difference between container and container-fluid and how do I use margins?”
+Model/output summary 1-3 sentences	The output explained that a container keeps the content cantered with a fixed width and container fluid uses the full width of the screen. It also suggested using, mt-5 for my code to add a margin to the top for spacing.
+What you changed next How you iterated / fixed issues	I used container-fluid for the navigation bar to make it full width and container mt-5 to keep the main content cantered and to add spacing.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I had issues loading some of my images on the webpage.
+Prompt Paste the structured prompt	“My image is not showing on the webpage, here is a screenshot of the code why isn’t it working?”
+Model/output summary 1-3 sentences	The output explained that the file name was incorrect and I had to have the exact name (change the image from .png to .jpg)
+What you changed next How you iterated / fixed issues	I checked my image file name and realised it was saved as .png, so I corrected the file name by downloading the image again and ensuring it was saved as .jpg.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I was having issues with my page layout not displaying correctly due to errors in my structure.
+Prompt Paste the structured prompt	“Why is my html layout broken? I added my navbar but its not displaying properly?”
+Model/output summary 1-3 sentences	The output suggested checking my HTML structure and gave me a guided layout.
+What you changed next How you iterated / fixed issues	I realised I had placed the navbar inside the <head> section and not closed the <body> tag. I corrected these issues and the page displayed properly.
+
+Style.css
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted to keep a blue and white theme for the web page, I wanted to find colours that suited instead of the standard #blue and #white.
+Prompt Paste the structured prompt	“I want to use a blue and white theme for this website, what colours should I use?”
+Model/output summary 1-3 sentences	The response suggested light and dark shades of blue along with a gradient for the background to make the website feel modern.
+What you changed next How you iterated / fixed issues	I had to prompt this a few times until I got my chosen colours - #003366, #0055aa, #0d1b2a and #4da8f7. I updated my CSS to use a gradient background with the code provided.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	The header was not structured properly beneath the first image on the website, I wanted to fix this so it was layered onto the image.
+Prompt Paste the structured prompt	“How can I position my text on top of an image in the hero section using css so the headed is layered over the image?”
+Model/output summary 1-3 sentences	The response suggested using position: relative on the hero container and position: absolute on the text. It also suggested using object-fit: cover to make the image fill the container without stretching the image. It also suggested filter: brightness(0.75); to darken the image so the text is easier to read.
+What you changed next How you iterated / fixed issues	I updated my hero sections to include position: relative, position: absolute, object-fit: cover and filter: brightness(0.75). This ensured that my header was correctly styled, the image wasn’t distorted and easier to read
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted the text to be readable across all different screen sizes to improve accessibility.
+Prompt Paste the structured prompt	“How can I make the text on my heading and paragraph text readable on different screen sizes to improve accessibility?”
+Model/output summary 1-3 sentences	The response suggested using rem techniques on font sizes to improve readability across different screen sizes. It explained how relative units scale based on the device.
+What you changed next How you iterated / fixed issues	I implemented 2.5 rem and 1.1 rem on my hero-text.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted to use shadow and a gradient background but my code wasn’t working.
+Prompt Paste the structured prompt	“How can I use shadow and gradient background so my page looks more modern.”
+Model/output summary 1-3 sentences	The output suggested using a box-shadow and linear gradient background using my previous colours.
+What you changed next How you iterated / fixed issues	I updated my .card-box to include a gradient background and a box-shadow. At first it looked too strong so I adjusted the values until it was more suble.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	My images looked stretched in the boxes and I wanted to fix them like I did for the main image of the page.
+Prompt Paste the structured prompt	“How do I make my images fit inside the card without them stretching or overflowing?”
+Model/output summary 1-3 sentences	The response suggested using object-fit: cover and overflow: hidden. This makes sure my images aren’t stretched and stays in the boundaries.
+What you changed next How you iterated / fixed issues	I added object-fit: cover to my images and overflow: hidden to the card. This fixed the stretching issues and kept the images neat within the card.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted to position text over an image in a card.
+Prompt Paste the structured prompt	“What do I use to position text over an image inside a card like in the main heading?”
+Model/output summary 1-3 sentences	The response explained using position: relative on the card and position: absolute on the text. It also suggested using z-index to make sure that the text appears on top of the image.
+What you changed next How you iterated / fixed issues	I set .card-box to position: relative and .card-text to position: absolute with bottom: 0 as it puts the text to the bottom of the container. I added z-index: 2 so the text is visible on top of the image.
+
+Date/time	14/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted to add a blur effect to my card design.
+Prompt Paste the structured prompt	“How can I add a blur effect to my card”
+Model/output summary 1-3 sentences	The response recommended using backdrop-filter: blur(10px) to create a blur effect.
+What you changed next How you iterated / fixed issues	I added this code to m
+
+
+
+Events Page:
+Date/time	24/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted to create a search bar so the user can search events,
+Prompt Paste the structured prompt	“I want to create a search bar with events, how do I do this?”
+Model/output summary 1-3 sentences	The response gave me a sample code of a search bar and a container where all events are listed. I learned that by using Javascript (when completed) it will filter the events.
+What you changed next How you iterated / fixed issues	I added this code to my events page, ChatGPT automatically gave card boxes, however I want to make a list so I prompted again. The search bar isn’t functional at the moment until I implement Javascript.
+
+Date/time	24/04/2026
+Tool used e.g., ChatGPT, Copilot, Cursor, etc.	ChatGPT
+Goal What you were trying to achieve	I wanted to create a list of events instead of cards.
+Prompt Paste the structured prompt	“I don't want my events in a card, I want a list. I don't want them to contain images at the moment.”
+Model/output summary 1-3 sentences	The response gave me a sample code of a list and automatic Javascript.
+What you changed next How you iterated / fixed issues	The response gave me a sample code of a list and automatic Javascript, however I will not use this as of now. I added this code to my events page, there was no issues with the code.
+y cardbox and it gave it a more polished appearance.
