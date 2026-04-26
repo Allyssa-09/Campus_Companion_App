@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useAuth } from "../../lib/auth";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -15,6 +16,7 @@ const NAV_ITEMS = [
 export function SiteNav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   return (
     <header className="site-header" role="banner">
@@ -43,6 +45,17 @@ export function SiteNav() {
             })}
           </ul>
         </nav>
+
+        <div className="site-header__actions desktop-only">
+          {user ? (
+            <div className="user-menu">
+              <span className="user-name">Hello, {user.firstName}</span>
+              <button onClick={logout} className="btn btn--outline btn--sm">Logout</button>
+            </div>
+          ) : (
+            <Link href="/login" className="btn btn--primary btn--sm">Sign In</Link>
+          )}
+        </div>
 
         {/* Mobile hamburger */}
         <button
@@ -79,6 +92,15 @@ export function SiteNav() {
               </li>
             );
           })}
+          {user ? (
+            <li className="mobile-only">
+               <button onClick={() => { logout(); setMenuOpen(false); }} className="btn btn--outline btn--sm" style={{ width: '100%', marginTop: '10px' }}>Logout ({user.firstName})</button>
+            </li>
+          ) : (
+            <li className="mobile-only">
+              <Link href="/login" className="btn btn--primary btn--sm" style={{ width: '100%', marginTop: '10px' }} onClick={() => setMenuOpen(false)}>Sign In</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

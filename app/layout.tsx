@@ -12,6 +12,8 @@ export const metadata: Metadata = {
     "Your first-year guide to Hartwell University — timetables, maps, announcements and more.",
 };
 
+import { AuthProvider } from "../lib/auth";
+
 export default function RootLayout({
   children,
 }: {
@@ -32,11 +34,13 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <SkipLink />
-        <SiteNav />
-        <main id="main-content" tabIndex={-1}>
-          {children}
-        </main>
+        <AuthProvider>
+          <SkipLink />
+          <SiteNav />
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
+        </AuthProvider>
         <footer className="site-footer" role="contentinfo">
           <p>
             © 2026 Hartwell University · Campus Companion ·{" "}

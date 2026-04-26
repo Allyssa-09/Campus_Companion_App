@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { TIMETABLE } from "@/lib/db";
-import type { TimetableEntry } from "@/types";
+import { TIMETABLE } from "../../lib/db";
+import type { TimetableEntry } from "../../types";
+import { useAuth } from "../../lib/auth";
+import { ProtectedRoute } from "../../components/auth/ProtectedRoute";
 
 const DAYS: TimetableEntry["day"][] = [
   "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
@@ -32,6 +34,41 @@ function getDefaultDay(): TimetableEntry["day"] {
   const d = new Date().getDay(); // 0=Sun, 6=Sat
   if (d === 0 || d === 6) return "Monday";
   return DAYS[d - 1];
+}
+
+/**
+ * Parses the raw timetable string from the CSV into TimetableEntry objects
+ * Example: "Intro to Programming:Tuesday 12:00 B127 | Calculus I:Monday 10:00 B425"
+ */
+function parseUserTimetable(rawString: string): TimetableEntry[] {
+  if (!rawString) return [];
+  
+  return rawString.split("|").map((segment, index) => {
+    const [name, rest] = segment.split(":").map(s => s.trim());
+    // Rest format: "Tuesday 12:00 B127"
+    const parts = rest.split(" ");
+    const day = parts[0] as TimetableEntry["day"];
+    const startTime = parts[1];
+    const room = parts[2];
+
+    // Estimate end time (classes are usually 1 hour)
+    const [h, m] = startTime.split(":").map(Number);
+    const endTime = `${String(h + 1).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+
+    return {
+      id: `user-class-${index}`,
+      moduleCode: name.split(" ").map(word => word[0]).join("").toUpperCase(), // Mock code
+      moduleName: name,
+      type: "Lecture",
+      day,
+      startTime,
+      endTime,
+      room,
+      building: "Main Campus",
+      lecturer: "TBA",
+      colour: "var(--blue)"
+    };
+  });
 }
 
 function DetailPanel({
@@ -99,9 +136,15 @@ function DetailPanel({
 export default function TimetablePage() {
   const [activeDay, setActiveDay] = useState<TimetableEntry["day"]>(getDefaultDay);
   const [selectedEntry, setSelectedEntry] = useState<TimetableEntry | null>(null);
+  const { user } = useAuth();
   const detailRef = useRef<HTMLDivElement>(null);
 
-  const dayClasses = TIMETABLE
+  // Use student's personal timetable if logged in, otherwise default mock data
+  const currentTimetable = user?.timetable 
+    ? parseUserTimetable(user.timetable) 
+    : TIMETABLE;
+
+  const dayClasses = currentTimetable
     .filter((e) => e.day === activeDay)
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
@@ -124,160 +167,162 @@ export default function TimetablePage() {
   const todayDayName = getDefaultDay();
 
   return (
-    <div className="page timetable-page">
-      {/* Page header */}
-      <header className="timetable-header">
-        <h1>
-          Your <em>timetable</em>
-        </h1>
-        <p>Week view · Autumn Term 2025 · Click any class for details</p>
-      </header>
+    <ProtectedRoute>
+      <div className="page timetable-page">
+        {/* Page header */}
+        <header className="timetable-header">
+          <h1>
+            Your <em>timetable</em>
+          </h1>
+          <p>Week view · Autumn Term 2025 · Click any class for details</p>
+        </header>
 
-      {/* Day tab strip */}
-      <div
-        role="tablist"
-        aria-label="Select day"
-        className="day-tabs"
-      >
-        {DAYS.map((day) => {
-          const count = TIMETABLE.filter((e) => e.day === day).length;
-          const isActive = activeDay === day;
-          const isToday = day === todayDayName;
+        {/* Day tab strip */}
+        <div
+          role="tablist"
+          aria-label="Select day"
+          className="day-tabs"
+        >
+          {DAYS.map((day) => {
+            const count = currentTimetable.filter((e) => e.day === day).length;
+            const isActive = activeDay === day;
+            const isToday = day === todayDayName;
 
-          return (
-            <button
-              key={day}
-              role="tab"
-              aria-selected={isActive}
-              aria-controls="timetable-panel"
-              id={`tab-${day}`}
-              className={[
-                "day-tab",
-                isActive ? "day-tab--active" : "",
-                isToday ? "day-tab--today" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              onClick={() => {
-                setActiveDay(day);
-                setSelectedEntry(null);
-              }}
-            >
-              <span className="day-tab__label">{day.slice(0, 3)}</span>
-              <span className="day-tab__count" aria-hidden="true">
-                {count} class{count !== 1 ? "es" : ""}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Timetable grid panel */}
-      <div
-        id="timetable-panel"
-        role="tabpanel"
-        aria-labelledby={`tab-${activeDay}`}
-        aria-label={`${activeDay} timetable`}
-      >
-        {dayClasses.length === 0 ? (
-          <p className="timetable-empty" role="status">
-            No classes on {activeDay} — a free day!
-          </p>
-        ) : (
-          <div className="timetable-grid" aria-label="Visual timetable grid">
-            {/* Accessible text fallback for screen readers */}
-            <section
-              aria-label={`${activeDay} classes list`}
-              className="sr-only"
-            >
-              <ul>
-                {dayClasses.map((e) => (
-                  <li key={e.id}>
-                    {e.startTime}–{e.endTime}: {e.moduleName} ({e.type}), {e.room},{" "}
-                    {e.building}, {e.lecturer}
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            {/* Visual grid (aria-hidden so screen readers use the list above) */}
-            <div className="time-axis" aria-hidden="true">
-              {/* Hour labels */}
-              <div className="time-slots">
-                {HOURS.map((h) => (
-                  <div key={h} className="time-label">
-                    {String(h).padStart(2, "0")}:00
-                  </div>
-                ))}
-              </div>
-
-              {/* Classes column */}
-              <div
-                className="classes-column"
-                style={{ height: totalHeight }}
+            return (
+              <button
+                key={day}
+                role="tab"
+                aria-selected={isActive}
+                aria-controls="timetable-panel"
+                id={`tab-${day}`}
+                className={[
+                  "day-tab",
+                  isActive ? "day-tab--active" : "",
+                  isToday ? "day-tab--today" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                onClick={() => {
+                  setActiveDay(day);
+                  setSelectedEntry(null);
+                }}
               >
-                {/* Hour lines */}
-                {HOURS.map((h) => (
-                  <div
-                    key={h}
-                    className="hour-line"
-                    style={{ top: (h - START_HOUR) * PX_PER_HOUR }}
-                  />
-                ))}
+                <span className="day-tab__label">{day.slice(0, 3)}</span>
+                <span className="day-tab__count" aria-hidden="true">
+                  {count} class{count !== 1 ? "es" : ""}
+                </span>
+              </button>
+            );
+          })}
+        </div>
 
-                {/* Class blocks */}
-                {dayClasses.map((entry) => (
-                  <button
-                    key={entry.id}
-                    className="class-block"
-                    style={{
-                      top: classTopPx(entry.startTime),
-                      height: classHeightPx(entry.startTime, entry.endTime),
-                      backgroundColor: entry.colour,
-                      outline:
-                        selectedEntry?.id === entry.id
-                          ? "3px solid var(--gold)"
-                          : undefined,
-                    }}
-                    onClick={() => handleSelectEntry(entry)}
-                    aria-pressed={selectedEntry?.id === entry.id}
-                    aria-label={`${entry.moduleName} ${entry.type}, ${entry.startTime} to ${entry.endTime}, ${entry.room}. Press to ${selectedEntry?.id === entry.id ? "close" : "view"} details.`}
-                  >
-                    <div className="class-block__code">{entry.moduleCode}</div>
-                    <div className="class-block__name">{entry.moduleName}</div>
-                    {classHeightPx(entry.startTime, entry.endTime) >= 80 && (
-                      <div className="class-block__meta">
-                        {entry.room} · {entry.lecturer}
-                      </div>
-                    )}
-                    <span className="class-block__type-badge">{entry.type}</span>
-                  </button>
-                ))}
+        {/* Timetable grid panel */}
+        <div
+          id="timetable-panel"
+          role="tabpanel"
+          aria-labelledby={`tab-${activeDay}`}
+          aria-label={`${activeDay} timetable`}
+        >
+          {dayClasses.length === 0 ? (
+            <p className="timetable-empty" role="status">
+              No classes on {activeDay} — a free day!
+            </p>
+          ) : (
+            <div className="timetable-grid" aria-label="Visual timetable grid">
+              {/* Accessible text fallback for screen readers */}
+              <section
+                aria-label={`${activeDay} classes list`}
+                className="sr-only"
+              >
+                <ul>
+                  {dayClasses.map((e) => (
+                    <li key={e.id}>
+                      {e.startTime}–{e.endTime}: {e.moduleName} ({e.type}), {e.room},{" "}
+                      {e.building}, {e.lecturer}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              {/* Visual grid (aria-hidden so screen readers use the list above) */}
+              <div className="time-axis" aria-hidden="true">
+                {/* Hour labels */}
+                <div className="time-slots">
+                  {HOURS.map((h) => (
+                    <div key={h} className="time-label">
+                      {String(h).padStart(2, "0")}:00
+                    </div>
+                  ))}
+                </div>
+
+                {/* Classes column */}
+                <div
+                  className="classes-column"
+                  style={{ height: totalHeight }}
+                >
+                  {/* Hour lines */}
+                  {HOURS.map((h) => (
+                    <div
+                      key={h}
+                      className="hour-line"
+                      style={{ top: (h - START_HOUR) * PX_PER_HOUR }}
+                    />
+                  ))}
+
+                  {/* Class blocks */}
+                  {dayClasses.map((entry) => (
+                    <button
+                      key={entry.id}
+                      className="class-block"
+                      style={{
+                        top: classTopPx(entry.startTime),
+                        height: classHeightPx(entry.startTime, entry.endTime),
+                        backgroundColor: entry.colour,
+                        outline:
+                          selectedEntry?.id === entry.id
+                            ? "3px solid var(--gold)"
+                            : undefined,
+                      }}
+                      onClick={() => handleSelectEntry(entry)}
+                      aria-pressed={selectedEntry?.id === entry.id}
+                      aria-label={`${entry.moduleName} ${entry.type}, ${entry.startTime} to ${entry.endTime}, ${entry.room}. Press to ${selectedEntry?.id === entry.id ? "close" : "view"} details.`}
+                    >
+                      <div className="class-block__code">{entry.moduleCode}</div>
+                      <div className="class-block__name">{entry.moduleName}</div>
+                      {classHeightPx(entry.startTime, entry.endTime) >= 80 && (
+                        <div className="class-block__meta">
+                          {entry.room} · {entry.lecturer}
+                        </div>
+                      )}
+                      <span className="class-block__type-badge">{entry.type}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Detail panel */}
-        {selectedEntry && (
-          <div ref={detailRef}>
-            <DetailPanel entry={selectedEntry} onClose={handleCloseDetail} />
-          </div>
-        )}
+          {/* Detail panel */}
+          {selectedEntry && (
+            <div ref={detailRef}>
+              <DetailPanel entry={selectedEntry} onClose={handleCloseDetail} />
+            </div>
+          )}
+        </div>
+
+        {/* Keyboard hint */}
+        <p
+          style={{
+            marginTop: 32,
+            fontSize: "0.78rem",
+            color: "var(--ink-muted)",
+          }}
+          aria-live="off"
+        >
+          <strong>Keyboard tip:</strong> Use Tab to navigate between classes, Enter/Space to
+          select, Escape to dismiss detail panel.
+        </p>
       </div>
-
-      {/* Keyboard hint */}
-      <p
-        style={{
-          marginTop: 32,
-          fontSize: "0.78rem",
-          color: "var(--ink-muted)",
-        }}
-        aria-live="off"
-      >
-        <strong>Keyboard tip:</strong> Use Tab to navigate between classes, Enter/Space to
-        select, Escape to dismiss detail panel.
-      </p>
-    </div>
+    </ProtectedRoute>
   );
 }

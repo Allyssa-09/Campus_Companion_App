@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useAuth } from "../lib/auth";
 
 /**
  * HomePage
@@ -67,6 +68,8 @@ const CARDS: HomeCard[] = [
 ];
 
 export default function HomePage() {
+  const { user } = useAuth();
+
   return (
     <div className="page">
 
@@ -145,10 +148,21 @@ export default function HomePage() {
               marginBottom: 16,
             }}
           >
-            Campus{" "}
-            <em style={{ fontStyle: "italic", fontWeight: 300, color: "var(--gold-light)" }}>
-              Companion
-            </em>
+            {user ? (
+              <>
+                Good Morning,{" "}
+                <em style={{ fontStyle: "italic", fontWeight: 300, color: "var(--gold-light)" }}>
+                  {user.firstName}
+                </em>
+              </>
+            ) : (
+              <>
+                Campus{" "}
+                <em style={{ fontStyle: "italic", fontWeight: 300, color: "var(--gold-light)" }}>
+                  Companion
+                </em>
+              </>
+            )}
           </h1>
           <p
             style={{

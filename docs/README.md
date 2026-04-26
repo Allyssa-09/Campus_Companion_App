@@ -32,4 +32,22 @@ The Campus Companion application was designed with usability as a priority to en
 
 The Campus Companion application was designed with accessibility in mind to provide inclusivity. This was done by using many features such proper headings which helps those who use screen readers to understand the content. Clear labels on the search bar and forms provide descriptions for users that are easy to understand. Hover effects are used to highlight a user’s location on the page, this is extremely important for accessibility. As mentioned before, we used a blue and white theme to ensure visual contrast between the background and text. This was also considered to improve reading for visually impaired users. The font was also considered as simple fonts and font size provide legibility. Our images contained alt text to help screen readers describe images. These features ensures that the Campus Companion App is inclusive and accessible for all users.
 
+
 - By Leah
+
+
+## Privacy, Security & GDPR
+
+### Privacy
+
+The Campus Companion application handles sensitive academic information, including user schedules and module grades. To ensure full confidentiality of all campus users during the design and evaluation stages, the application uses exclusively fictional data (`campus_companion_students.csv`). The system does not process or store any actual student names, personal information, or location tracking data.
+
+### Security
+To protect user data from unauthorised access, the application implements a login system so students can login securely using their University Email and Student ID as credentials. Furthermore, sensitive pages, such as the personal Timetable, are secured using Protected Routes. If an unauthenticated user attempts to access these private views, the system automatically intercepts the request and redirects them to the login screen.
+
+### GDPR Compliance
+The application follows the main principles of the General Data Protection Regulation (GDPR):
+ 1. **Data Minimization: The system collects and processes only the minimum amount of data needed to provide its services, such as timetables and emails. It completely avoids all highly private information like home addresses or banking details from the dataset.
+ 2. **Purpose Limitation: Student data is used only for providing personalized campus recommendations and schedule tracking. It is never shared with the third parties.
+
+- By Alia
