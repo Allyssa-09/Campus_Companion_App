@@ -1,5 +1,4 @@
 # Contributors
-
 This document outlines the contributions of each team member to the Campus Companion App for **Nature of Enterprise Computing — CA3 (TU859, TU Dublin)**.
 
 While GitHub's Contributors graph reflects the current state of the `main` branch, the full team contribution history can also be viewed in the **Activity tab** of this repository, which records every commit made by each member throughout the project.
@@ -13,6 +12,8 @@ While GitHub's Contributors graph reflects the current state of the `main` branc
 - **Project Compiler & Integrator** — combined all team members' contributions into the unified Next.js project, resolved integration conflicts, and ensured the application runs end-to-end
 - **Netlify Deployment & CI/CD** — set up automatic deployment from GitHub
 - **Project documentation** — problem statement and target user personas (alongside Alia)
+- **Login page bug fix** — resolved Netlify build failure caused by Alia's login page (`app/login/page.tsx`); wrapped `useSearchParams()` in a Suspense boundary to comply with Next.js 14 requirements, restoring automatic deployment
+- **Bug fix commit** (`fix: login page build error - wrapped useSearchParams in Suspense boundary`) — identified error from Netlify deploy log and applied targeted fix
 - Coordinated team communication and project structure
 
 ### Leah Comerford (`leahcomerford13`)
@@ -32,11 +33,15 @@ While GitHub's Contributors graph reflects the current state of the `main` branc
 - **Type definitions** (`types/index.ts`) — TimetableEntry, Announcement, QuickLink interfaces
 - **Seed data** (`lib/db.ts`) — fictional timetable, announcements, and quick links
 
-### Alia
+### Alia (`alia2025`)
 - **Society Events page** (`app/events/page.tsx`) — search, category filtering, featured/regular event sections, modal detail view with save functionality, full ARIA accessibility
+- **Login page** (`app/login/page.tsx`) — student authentication using email and Student ID matched against CSV data
+- **Protected route component** (`components/ProtectedRoute.tsx`) — redirects unauthenticated users to login
+- **Auth API route** (`app/api/auth/login/route.ts`) — backend login handler reading from campus_companion_students.csv
+- **Privacy, Security & GDPR documentation** — added to docs/readme
 - **Project documentation** — problem statement and target user personas (alongside Allyssa)
 
-### Jamiu
+### Jamiu (`A00037797`)
 - **Library page** (`app/library/page.tsx`) — catalogue search and filtering by type, study room reservation form, opening hours display, accessibility-aware layout
 
 ---
@@ -49,5 +54,4 @@ While GitHub's Contributors graph reflects the current state of the `main` branc
 ---
 
 ## Notes on Git History
-
 Earlier in the project, individual contributors pushed their work as separate commits on `main` (visible in the repository's **Activity** and **Commits** tabs). When the project entered the integration phase, the compiled, working version of the application was force-pushed to `main` to provide a single, coherent codebase for deployment. The full original commit history of each member's work remains accessible via the Activity tab.
