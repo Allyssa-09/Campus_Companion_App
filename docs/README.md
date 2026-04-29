@@ -51,3 +51,16 @@ The application follows the main principles of the General Data Protection Regul
  2. **Purpose Limitation: Student data is used only for providing personalized campus recommendations and schedule tracking. It is never shared with the third parties.
 
 - By Alia
+
+## Deployment plan
+The project on Campus Companion App was deployed using Netlify, connected through the Github repository. It was chosen to use Netlify because it manages well with the GitHub and handles the application we built, also making the process of getting the app online simple.
+
+Every time a change is uploaded to GitHub, Netlify detects it which is automatically updates the live website. This means the URL site are always shows the most recent version of the app without anyone having manually upload one-by-one in files.
+
+When processing the deployment project, one problem was encountered. After a team member pushed the login page to Github, the site failed to update. The error shows in Netlify’s build log and was caused by a small coding that is required that was missed in the login page. The challenges was fixed quickly and the website was restored very well.
+
+Overall, Netlify was straightforward tool that allows us a team to keep our website clean and up to date through the project. 
+
+The application is live and accessible at: campus-companion-app.netlify.app
+
+- Allyssa
