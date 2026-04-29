@@ -2,7 +2,7 @@
 
 A Next.js web application that brings together a student's most-used campus tools — timetable, map, library, and society events — into one accessible, easy-to-navigate interface.
 
-🌐 **Live demo:** [aesthetic-sunburst-e95212.netlify.app](https://aesthetic-sunburst-e95212.netlify.app)
+🌐 **Live demo:** [campus-companion-app.netlify.app](http://campus-companion-app.netlify.app)
 
 ---
 
