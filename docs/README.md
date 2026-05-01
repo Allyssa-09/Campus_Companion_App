@@ -14,6 +14,17 @@ The system uses particular student profiles from campus_companion_students.csv d
 
 - by Allyssa
 
+## System design: Inputs, Processes, Outputs (IPO)
+In this application, it follows a simple input, process and output layout to manage how data flows through the system.
+
+Systems gets information from the two main sources. Students can login first to get the details, which include email address (university email) and student ID. Second, the dataset stored in the CSV file, which contains information for example, timetables, module grades, courses details and social events.
+
+When the students fill the login details, it will automatically checks the systems through CSV file to confirm if they are a valid user. If the details is correct, the student can access to their personal pages. This also retrieves the relevant information for the student, such as the weekly timetable and module information and it will display it on the screen.
+
+The output is what the students sees after logging in. The app provides personalised timetable showing the time classes, room locations and module names. It also displays campus map, library information and society events, that gives students everything they need in one place so it is easy to manage.
+
+- Allyssa
+
 ##  Architecture Overview:
 The Campus Companion application uses client-server architecture. This is a system that allows the clients eg. students and lecturers to send a request to the server, which will then process the request to return the data back to the client. The front end of the application will be built using Next.js, this will provide a user interface and page navigation, which allows students to access the system through pages containing events, calendars, reminders, helpdesk support and campus locations. The application uses mock data as well as a CSV file for user authentication. Serverless functions may be used to process actions such as submitting tickets and saving reminders. The frontend and backend of the application communicate using API routes, this is a request from a website to a server in order to send or receive data. User authentication will be essential to allow users to log in and get personalised recommendations such as upcoming events. The Campus Companion application will deploy with Netlify with git automatic deployment, this means when the website will automatically update when new code is pushed to the Git repository. This application architecture is scalable and simple to ensure the system will be able to handle many users and data without crashing.
 - by Leah
@@ -46,8 +57,8 @@ To protect user data from unauthorised access, the application implements a logi
 
 ### GDPR Compliance
 The application follows the main principles of the General Data Protection Regulation (GDPR):
- 1. **Data Minimization: The system collects and processes only the minimum amount of data needed to provide its services, such as timetables and emails. It completely avoids all highly private information like home addresses or banking details from the dataset.
- 2. **Purpose Limitation: Student data is used only for providing personalized campus recommendations and schedule tracking. It is never shared with the third parties.
+ 1. Data Minimization: The system collects and processes only the minimum amount of data needed to provide its services, such as timetables and emails. It completely avoids all highly private information like home addresses or banking details from the dataset.
+ 2. Purpose Limitation: Student data is used only for providing personalized campus recommendations and schedule tracking. It is never shared with the third parties.
 
 - By Alia
 
