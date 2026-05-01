@@ -15,7 +15,8 @@ The system uses particular student profiles from campus_companion_students.csv d
 - by Allyssa
 
 ## System design: Inputs, Processes, Outputs (IPO)
-In this application, it follows a simple input, process and output layout to manage how data flows through the system.
+
+This application, it follows a simple input, process and output layout structure.
 
 Systems gets information from the two main sources. Students can login first to get the details, which include email address (university email) and student ID. Second, the dataset stored in the CSV file, which contains information for example, timetables, module grades, courses details and social events.
 
