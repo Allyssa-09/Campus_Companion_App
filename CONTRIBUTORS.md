@@ -14,6 +14,10 @@ While GitHub's Contributors graph reflects the current state of the `main` branc
 - **Project documentation** — problem statement and target user personas (alongside Alia)
 - **Login page bug fix** — resolved Netlify build failure caused by Alia's login page (`app/login/page.tsx`); wrapped `useSearchParams()` in a Suspense boundary to comply with Next.js 14 requirements, restoring automatic deployment
 - **Bug fix commit** (`fix: login page build error - wrapped useSearchParams in Suspense boundary`) — identified error from Netlify deploy log and applied targeted fix
+- **System Design (IPO)** — wrote the Input, Process and Output section for the design report
+- **Appendix** — wrote the Appendix section for the design report including live site link, GitHub link, AI tools used and test login credentials
+- **README update** — updated the live Netlify URL in the README
+- **CA3 Submission** — submitted all components on Brightspace on behalf of the group
 - Coordinated team communication and project structure
 
 ### Leah Comerford (`leahcomerford13`)
@@ -32,6 +36,8 @@ While GitHub's Contributors graph reflects the current state of the `main` branc
 - **API routes** (`app/api/timetable/route.ts`, `app/api/announcements/route.ts`) and **Netlify functions**
 - **Type definitions** (`types/index.ts`) — TimetableEntry, Announcement, QuickLink interfaces
 - **Seed data** (`lib/db.ts`) — fictional timetable, announcements, and quick links
+- **Final design report** — compiled and formatted the final CA3 Word document combining all team sections
+- **Usability testing** — conducted usability tests with Users 2 & 3, recorded tasks and feedback
 
 ### Alia (`alia2025`)
 - **Society Events page** (`app/events/page.tsx`) — search, category filtering, featured/regular event sections, modal detail view with save functionality, full ARIA accessibility
